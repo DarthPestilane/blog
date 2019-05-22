@@ -1,3 +1,5 @@
+# make build && make deploy
+
 build:
 	rm -rf db.json && hexo clean && hexo generate
 deploy:
