@@ -68,12 +68,12 @@ tags:
     例: A事务begin --> B事务begin --> B事务insert -->B 事务commit --> A事务select，得到了之前没有的数据
     解决方式: 加锁 (乐观锁 / 悲观锁)。InnoDB 存储引擎通过多版本并发控制（MVCC）解决了幻读的问题。
 
-| 事务隔离级别                | 脏读 | 不可重复读 | 幻读 | 备注                                                  |
-| --------------------------- | ---- | ---------- | ---- | ----------------------------------------------------- |
-| (未提交读) Read Uncommitted | y    | y          | y    | 性能好，但是会早成许多业务上的异常，一般不用          |
-| (已提交读) Read Committed   | n    | y          | y    | 可以避免脏读，但是会出现不可重复读                    |
-| (可重复读) Repeatable Read  | n    | n          | y    | InnoDB 默认的隔离级别，实际上已经通过 MVCC 避免了幻读 |
-| (串行化) Serializable       | n    | n          | n    | 性能消耗太大，一般不用 (select 时也会加锁)            |
+| 事务隔离级别                | 脏读 | 不可重复读 | 幻读 | 备注                                                            |
+| --------------------------- | ---- | ---------- | ---- | --------------------------------------------------------------- |
+| (未提交读) Read Uncommitted | y    | y          | y    | 性能好，但是会早成许多业务上的异常，一般不用                    |
+| (已提交读) Read Committed   | n    | y          | y    | 可以避免脏读，但是会出现不可重复读                              |
+| (可重复读) Repeatable Read  | n    | n          | y    | InnoDB 默认的隔离级别，实际上已经通过 Next-Key 锁机制避免了幻读 |
+| (串行化) Serializable       | n    | n          | n    | 性能消耗太大，一般不用 (select 时也会加锁)                      |
 
 ## 不可重复读和幻读的区别
 
@@ -148,6 +148,6 @@ Query OK, 1 row affected
 Time: 0.012s
 ```
 
-这说明了事务A中的 `select * from user where age = 13 lock in share mode` 不仅锁住了满足条件的记录行，也锁住了 `age >= 7` 和 `age < 14` 的记录，也就是区间 `[7, 14)`，这就是 GAP 锁的效果。
-在上面例子里的 age 字段是有索引的，，这点非常重要，因为如果没有索引的话，GAP 锁的范围将会锁住整个表，即便是 `insert into user values(0, 'name16', 'hxxi', 'woman', 'nothing', 6)` 也会被阻塞。
+这说明了事务A中的 `select * from user where age = 13 lock in share mode` 不仅锁住了满足条件的记录行，也锁住了 `age >= 7` 和 `age < 14` 的记录，也就是区间 `[7, 14)`，这就是 Next-Key 锁的效果。
+在上面例子里的 age 字段是有索引的，，这点非常重要，因为如果没有索引的话，Next-Key 锁的范围将会锁住整个表，即便是 `insert into user values(0, 'name16', 'hxxi', 'woman', 'nothing', 6)` 也会被阻塞。
 
