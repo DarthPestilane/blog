@@ -45,7 +45,7 @@ categories:
 ![image](https://t1.picb.cc/uploads/2019/09/11/gBwg5J.png)
 ![image](https://t1.picb.cc/uploads/2019/09/11/gBwkS0.png)
 
-需要记下上面连个的VLAN ID
+需要记下上面两个的VLAN ID
 
 Internet的连接模式**可以**设为桥接（非必须），设为桥接后，则需要在路由器完成拨号。
 
