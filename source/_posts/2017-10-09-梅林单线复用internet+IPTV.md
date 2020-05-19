@@ -7,6 +7,9 @@ tags:
 categories:
 - 笔记
 ---
+
+**此方法已无效，无法拿到 backupsettings.conf 了，电信后台修复了这个BUG**
+
 由于装修时网络布线问题，需要把电信光猫的IPTV业务在路由器中和Internet业务分开，达到单线复用
 
 ## 设备
