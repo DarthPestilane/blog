@@ -63,17 +63,17 @@ tags:
 - 脏读 (Dirty Read):
 
     事务中的修改，即使没有提交，对其他事务也都是可见的。事务可以读取未提交的数据，这也被称作脏读。
-    例: A事务begin --> B事务begin --> B事务update某行 --> A事务select该行，得到了更新后的结果
+    例: A事务begin => B事务begin => B事务update某行 => A事务select该行，得到了更新后的结果
 
 - 不可重复读 (Unrepeatable Read):
 
     事务中的修改提交后，其结果被其他事务所读取到。
-    例: A事务begin --> B事务begin --> B事务update某行 -->B 事务commit --> A事务读取该行，得到了更新后的结果
+    例: A事务begin => B事务begin => B事务update某行 =>B 事务commit => A事务读取该行，得到了更新后的结果
 
 - 幻读 (Phantom Read):
 
     所谓幻读，指的是当某个事务在读取某个范围内的记录时，另外一个事务又在该范围内插入了新的记录，当之前的事务再次读取该范围的记录时，会产生幻行。
-    例: A事务begin --> B事务begin --> B事务insert -->B 事务commit --> A事务select，得到了之前没有的数据
+    例: A事务begin => B事务begin => B事务insert => B事务commit => A事务select，得到了之前没有的数据
     解决方式: 加锁 (乐观锁 / 悲观锁)。InnoDB 存储引擎通过多版本并发控制（MVCC）解决了幻读的问题。
 
 | 事务隔离级别                | 脏读 | 不可重复读 | 幻读 | 备注                                                            |
@@ -85,7 +85,7 @@ tags:
 
 ## 不可重复读和幻读的区别
 
-区别在于 `不可重复读` 是由 `update`, `delete` 操作造成，而 `幻读` 是由 `insert` 操作造成。
+区别在于 `不可重复读` 是由 `update` 操作造成，而 `幻读` 是由 `insert`、`delete` 操作造成。
 在 `Read Committed` 级别下，当执行sql读取到数据后，给这些记录加锁，让其他事务无法修改这些数据，
 则实现了 `可重复读`。但是这种方法是无法阻止 `insert` 操作的，当事务A读取了数据，并修改了某些数据(加锁)，
 事务B还是可以insert数据提交，这时A事务再次读取就会发现多出了之前没有的数据，这就是幻读，而且无法通过行锁来避免。
@@ -163,6 +163,6 @@ Time: 0.012s
 
 这说明了事务A中的 `select * from user where age = 13 lock in share mode` 不仅锁住了满足条件的记录行，
 也锁住了 `age >= 7` 和 `age < 14` 的记录，也就是区间 `[7, 14)`，这就是 Next-Key 锁的效果。
-在上面例子里的 age 字段是有索引的，，这点非常重要，因为如果没有索引的话，Next-Key 锁的范围将会锁住整个表，
+在上面例子里的 age 字段是有索引的，这点非常重要，因为如果没有索引的话，Next-Key 锁的范围将会锁住整个表，
 即便是 `insert into user values(0, 'name16', 'hxxi', 'woman', 'nothing', 6)` 也会被阻塞。
 
