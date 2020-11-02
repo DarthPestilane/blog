@@ -24,6 +24,8 @@ var ch chan int         // nil
 var i interface{}       // nil
 ```
 
+<!-- more -->
+
 ### Pointer 的零值
 
 一个 `pointer` (指针) 变量，表示该变量指向了某一个内存地址，当我们只是声明了一个指针变量，而不指明其指向的内存地址，
