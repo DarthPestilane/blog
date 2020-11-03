@@ -18,9 +18,10 @@ $ npm install -g hexo-cli
 $ git pull <this repo>
 ```
 
-
 ```sh
-$ cd <this repo> && npm install
+$ cd <this repo>
+$ rm -rf node_module # 如果需要的话
+$ npm install
 ```
 
 ```sh
