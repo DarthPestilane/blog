@@ -26,7 +26,7 @@ var i interface{}       // nil
 
 <!-- more -->
 
-### Pointer 的零值
+## Pointer 的零值
 
 一个 `pointer` (指针) 变量，表示该变量指向了某一个内存地址，当我们只是声明了一个指针变量，而不指明其指向的内存地址，
 这个变量就会是 `nil`:
@@ -37,7 +37,7 @@ var ptr *Person // 声明了一个指针变量，但是没有说明指针地址
 assertTrue(ptr == nil)
 ```
 
-### Slice 的零值
+## Slice 的零值
 
 `slice` 是数组的切片，其内部有三个元素构成:
 
@@ -60,11 +60,11 @@ var ss = []int{1, 2, 3} // ss 是知道自己的底层数组的
 assertTrue(ss != nil)   // 所以不为 nil
 ```
 
-### Map, Channel, Function 的零值
+## Map, Channel, Function 的零值
 
 这三种类型的零值为 `nil` ，是因为当我们声明了变量后，并没有说明该变量对应的 implemention (实现) 是什么。
 
-### Interface 的零值
+## Interface 的零值
 
 首先思考一个例子，**实际开发中不要这样做**:
 
