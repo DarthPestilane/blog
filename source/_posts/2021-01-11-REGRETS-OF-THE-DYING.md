@@ -6,8 +6,6 @@ categories:
 tags:
 ---
 
-## REGRETS OF THE DYING
-
 For many years I worked in palliative care. My patients were those who had gone home to die.
 Some incredibly special times were shared. I was with them for the last three to twelve weeks of their lives.
 
