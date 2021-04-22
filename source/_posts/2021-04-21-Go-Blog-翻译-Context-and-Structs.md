@@ -26,6 +26,8 @@ tags:
 
 这篇文章就是针对上述建议的详述, 通过举例说明的方式来阐述为什么要传递 Context 而不是存储在另一个 type 里. 本文也强调了一种边缘情况: 将 Context 存储在 struct 中也是合理的. 以及如何安全实现.
 
+<!-- more -->
+
 ### Prefer contexts passed as arguments
 
 要理解这个建议: **不要把 Context 存储在 struct 中**. 我们先看看建议的方式下写的代码:
