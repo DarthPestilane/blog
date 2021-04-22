@@ -7,7 +7,7 @@ title: Never Gone
 subtitle:
 description:
 author: Mixx
-language: zh-Hans
+language: zh-CN
 timezone: PRC
 
 # URL
@@ -96,4 +96,4 @@ deploy:
   name: DarthPestilane
   email: 553061376@qq.com
 
-all_minifier: true
+all_minifier: false

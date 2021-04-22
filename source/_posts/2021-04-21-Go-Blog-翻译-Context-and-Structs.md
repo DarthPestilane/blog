@@ -2,8 +2,8 @@
 title: 'Go Blog 翻译: Context and Structs'
 date: 2021-04-21 17:10:54
 categories:
-- 翻译
-- 笔记
+- [翻译]
+- [笔记]
 tags:
 - golang
 ---
