@@ -8,8 +8,8 @@ categories:
 ---
 环境是 `macOS` 。每当使用 `git status` 时，只要修改了带有中文的文件，在控制台输出的中文部分都会被转义成 `Unicode` ，阅读体验不太好。
 
-![image](https://t1.picb.cc/uploads/2019/09/11/gBwC5W.png)
+![image](https://qiniu.wrzsj.top/blog/asset/img/gBwC5W)
 
 为了更好的体验，我修改了 `git` 的一个核心设置: `git config --global core.quotepath false` ，从此，再无困扰。
 
-![image](https://t1.picb.cc/uploads/2019/09/11/gBwcXw.png)
+![image](https://qiniu.wrzsj.top/blog/asset/img/gBwcXw)

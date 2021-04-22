@@ -45,8 +45,8 @@ categories:
 
 以超级管理员账号登录后，可以看到VLAN的配置
 
-![image](https://t1.picb.cc/uploads/2019/09/11/gBwg5J.png)
-![image](https://t1.picb.cc/uploads/2019/09/11/gBwkS0.png)
+![image](https://qiniu.wrzsj.top/blog/asset/img/gBwg5J)
+![image](https://qiniu.wrzsj.top/blog/asset/img/gBwkS0)
 
 需要记下上面两个的VLAN ID
 
@@ -56,13 +56,13 @@ Internet的连接模式**可以**设为桥接（非必须），设为桥接后�
 
 然后在VLAN绑定中添加一组
 
-![image](https://t1.picb.cc/uploads/2019/09/11/gBwZy1.png)
+![image](https://qiniu.wrzsj.top/blog/asset/img/gBwZy1)
 
 ### 在路由器中(梅林固件)，手动配置VLAN
 
 配置如下
 
-![image](https://t1.picb.cc/uploads/2019/09/11/gBwwcd.png)
+![image](https://qiniu.wrzsj.top/blog/asset/img/gBwwcd)
 
 ### 连线
 
