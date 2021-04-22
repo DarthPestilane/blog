@@ -96,4 +96,4 @@ deploy:
   name: DarthPestilane
   email: 553061376@qq.com
 
-all_minifier: false
+all_minifier: true
