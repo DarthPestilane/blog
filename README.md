@@ -24,6 +24,12 @@ $ rm -rf node_module # 如果需要的话
 $ npm install
 ```
 
+## Develop
+
 ```sh
-$ make
+$ make run
 ```
+
+Since the image assets are stored in QiNiu cloud
+
+Add hosts `127.0.0.1   local.net` and visit http://local.net:4000/
