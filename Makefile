@@ -3,6 +3,8 @@
 
 build:
 	rm -rf db.json && hexo clean && hexo generate
+new:
+	hexo new post '$(name)'
 run:
 	hexo s
 deploy:
