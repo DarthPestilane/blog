@@ -1,16 +1,22 @@
 # make build && make deploy
-.PHONY: all
 
-build:
-	rm -rf db.json && npx hexo clean && npx hexo generate
+.PHONY: build
+build: clean
+	rm -rf db.json
+	npx hexo generate
+
+.PHONY: new
 new:
-	hexo new post '$(name)'
+	npx hexo new post '$(name)'
+
+.PHONY: run
 run:
-	hexo s
+	npx hexo s
+
+.PHONY: deploy
 deploy:
 	rsync -azvhP ./public/ tencent:/var/local/www/blog/ --delete
-deploy-github-page:
-	hexo deploy
 
+.PHONY: clean
 clean:
-	hexo clean
+	npx hexo clean
