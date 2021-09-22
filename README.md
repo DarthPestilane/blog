@@ -5,7 +5,7 @@ Personal blog
 ## Installation
 
 ```sh
-$ brew install automake
+$ brew install automake # to enable make
 ```
 
 ```sh
@@ -13,16 +13,12 @@ $ npm config set registry https://registry.npm.taobao.org
 ```
 
 ```sh
-$ npm install -g hexo-cli
-```
-
-```sh
-$ git pull <this repo>
+$ git clone <this repo>
 ```
 
 ```sh
 $ cd <this repo>
-$ rm -rf node_module # 如果需要的话
+$ rm -rf node_module # if needed
 $ npm install
 ```
 
