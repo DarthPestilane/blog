@@ -2,7 +2,7 @@
 .PHONY: all
 
 build:
-	rm -rf db.json && hexo clean && hexo generate
+	rm -rf db.json && npx hexo clean && npx hexo generate
 new:
 	hexo new post '$(name)'
 run:

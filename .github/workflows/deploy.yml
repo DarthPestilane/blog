@@ -1,0 +1,46 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: deploy # deploy manually
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Cache node dependency
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: cache-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            cache-node-
+            cache-
+
+      - name: Setup Nodejs
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+
+      - name: Install dependency
+        run: npm install
+
+      - name: Build to static
+        run: make build
+
+      - name: Deploy to server
+        uses: burnett01/rsync-deployments@5.1
+        with:
+          switches: -azvhP --delete
+          path: ./public/
+          remote_path: ${{ secrets.SSH_REMOTE_PATH }}
+          remote_user: ${{ secrets.SSH_USER }}
+          remote_host: ${{ secrets.SSH_HOST }}
+          remote_port: ${{ secrets.SSH_PORT }}
+          remote_key: ${{ secrets.SSH_SECRET }}
