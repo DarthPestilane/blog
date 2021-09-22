@@ -1,5 +1,7 @@
 # Blog
 
+Personal blog
+
 ## Installation
 
 ```sh
