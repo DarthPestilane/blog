@@ -51,6 +51,8 @@ dev.fuzz 分支中，这个 tag 在 build-time 是默认开启的。
 // +build gofuzzbeta
 ```
 
+<!-- more -->
+
 ## Writing a fuzz target
 
 `fuzz target` 必须是 `*_test.go` 文件中以 `FuzzXxx` 形式命名的 function。
