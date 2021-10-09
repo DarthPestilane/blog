@@ -9,6 +9,10 @@ build: clean
 new:
 	npx hexo new post '$(name)'
 
+.PHONY: draft
+draft:
+	npx hexo new draft '$(name)'
+
 .PHONY: run
 run:
 	npx hexo s
