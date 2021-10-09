@@ -38,10 +38,27 @@ services:
 > sudo chown -R 1000:1000 ./jenkins
 ```
 
-启动之后，进入web界面，需要输入admin的密码，这个密码可以在容器的日志中获得:
+启动之后，进入 web 界面，需要输入 admin 的密码，这个密码可以在容器的日志中获得:
 
 ```sh
 > docker-compose logs jenkins # 查看容器日志
+```
+
+```log
+jenkins_1  | *************************************************************
+jenkins_1  | *************************************************************
+jenkins_1  | *************************************************************
+jenkins_1  |
+jenkins_1  | Jenkins initial setup is required. An admin user has been created and a password generated.
+jenkins_1  | Please use the following password to proceed to installation:
+jenkins_1  |
+jenkins_1  | e05d003a9ec24c62bf607b75a9e47582
+jenkins_1  |
+jenkins_1  | This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
+jenkins_1  |
+jenkins_1  | *************************************************************
+jenkins_1  | *************************************************************
+jenkins_1  | *************************************************************
 ```
 
 接下来建议直接选择安装社区推荐的插件，然后进行简单配置后，就可以正常登陆到 Jenkins 控制台了，
@@ -70,7 +87,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
     ports:
       - "3000:3000" # http 端口
-      - "222:22" # ssh 端口
 ```
 
 启动后，进入 web 界面进行安装，要注意 URL 里要填写容器内对应的地址。
@@ -98,23 +114,23 @@ Jenkins 和 Gitea 都准备好后，接下来就要开始配置 CI/CD 了。
 
 git 分支操作:
 
-- 从 master 分支切出 dev 分支作为长期迭代分支
-- 从 dev 分支切出 `feat` 分支作为功能分支
-- 在 `feat` 分支上提交代码，并及时 rebase dev 来保证提交不落后，完成开发后通过 pull request 的方式合并回 dev 分支
-- 将 dev 分支合并回 master 分支
-- 在 master 分支上打 tag，用于发布
+- 从 `master` 分支切出 `dev` 分支作为长期迭代分支
+- 从 `dev` 分支切出 `feat` 分支作为功能分支
+- 在 `feat` 分支上提交代码，并及时 rebase `dev` 来保证提交不落后，完成开发后通过 `pull request` 的方式合并回 `dev` 分支
+- 将 `dev` 分支合并回 `master` 分支
+- 在 `master` 分支上打 tag，用于发布
 
-对于线上的 bug 修复，应从 master 分支切出 hotfix 分支，
-开发完成后合并到 dev 进行测试，测试通过后合并到 master，然后打 tag 发布。
+对于线上的 bug 修复，应从 `master` 分支切出 `hotfix` 分支，
+开发完成后合并到 `dev` 进行测试，测试通过后合并到 `master` ，然后打 tag 发布。
 
 CI/CD 触发:
 
-- 当 master 和 dev 分支发生 push 时，触发
-- 当 pull request 创建或有后续 push 时，触发
+- 当 `master` 和 `dev` 分支发生 push 时，触发
+- 当 `pull request` 创建或有后续 push 时，触发
 - 每次触发都会执行 build, lint 和 test 任务
-- 如果由 dev 分支 push 触发，则部署到 QA 环境
-- 如果由 master 分支 push 触发，会进入打标签阶段，需要人工确认
-- 打上标签后，会进入部署到 PROD 环境阶段，也需要人工确认
+- 如果由 `dev` 分支 push 触发，则部署到 QA 环境
+- 如果由 `master` 分支 push 触发，会进入打标签阶段，需要人工确认
+- 打上标签后，会进入部署到生产环境阶段，也需要人工确认
 
 ### 配置
 
@@ -126,12 +142,13 @@ CI/CD 触发:
 
 配置分支源:
 
-- 需要设置 Credentials，使用
+- 需要设置 `Credentials` ，使用类型为 `Gitea Personal Access Token` 的凭证
 - 添加 `Discover branches`，策略为 `Only branches that are not also filed as PRs`
 - 添加 `Discover pull requests from origin`，策略为 `Merging the pull request with the current target branch revision`
 - 添加 `Discover tags`
 - 添加 `根据名称过滤（支持通配符)`, 包含 `master dev release-* PR-*`
-  - 其中 `release-*` 用来过滤 tag，`PR-*` 用来过滤 pull request
+  - `release-*` 用来过滤 tag。在打 tag 的时候，需要有 `release-` 前缀
+  - `PR-*` 用来过滤 pull request
 - 添加高级克隆行为，勾选 `Fetch tags` 和 `浅克隆`，并设置 `浅克隆深度` 为 1
 
 保存配置。
@@ -157,16 +174,10 @@ pipeline {
     agent any
     options {
         disableConcurrentBuilds() // 禁用并发构建
-        checkoutToSubdirectory('service') // 将 git 检出到 service 目录
+        // checkoutToSubdirectory('service') // 将 git 检出到 ${WORKSPACE}/service 目录
         timestamps() // Console log 中打印时间戳
     }
     stages {
-        stage('Environment') {
-            steps {
-                sh 'env'
-                sh 'ls -alh'
-            }
-        }
         stage('Build') {
             when { not { tag '*' } }
             steps {
@@ -194,7 +205,6 @@ pipeline {
                 echo 'deploy QA'
             }
         }
-
         stage('Tag on master') {
             when {
                 branch 'master'
@@ -211,13 +221,11 @@ pipeline {
             steps {
                 sh '''
                 export TAG=release-${milestone}-$(date +"%Y%m%d").${BUILD_ID}
-                cd service
                 git tag ${TAG}
                 git push origin ${TAG}
                 '''
             }
         }
-
         stage('Deploy Prod') {
             when {
                 tag '*'
@@ -240,7 +248,7 @@ pipeline {
 
 ## 总结
 
-这次实践中，在Jenkins 环节采用 master-slave 方式来完成运行流水线，相比只有master节点的工作方式，更加合理。
+这次实践中，在 Jenkins 的使用上采取 master-slave 方式来运行流水线，相比只有 master 节点的工作方式，更加合理，且方便扩展。
 配合 Jenkinsfile 的使用，实现了持续集成，搭建了敏捷开发的基础。
 
 不过对比 `GitHub Actions` 和 `Gitlab CI` 还是略显笨重和*复古*，配置文件的语法相比 `yaml` 也更加晦涩难懂，文档也略显粗糙。

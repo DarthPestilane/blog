@@ -97,3 +97,12 @@ deploy:
   email: 553061376@qq.com
 
 all_minifier: true
+
+marked:
+  gfm: true
+  pedantic: false
+  sanitize: false
+  tables: true
+  breaks: false
+  smartLists: true
+  smartypants: false
