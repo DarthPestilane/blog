@@ -2,9 +2,10 @@
 title: 利用 Github Action 部署博客
 date: 2021-10-09 14:05:20
 categories:
-  - 笔记
+- 笔记
 tags:
-  - CI
+- CI
+- Github Actions
 ---
 
 
@@ -14,7 +15,7 @@ tags:
 > make deploy
 ```
 
-如今已经成功将这个部署的过程迁移到了 Github Action。
+如今已经成功将这个部署的过程迁移到了 Github Actions。
 整个 workflow 包括 npm 依赖的安装和缓存，将 Markdown 生成静态 html 文件，和部署到服务器。
 
 配置如下:
