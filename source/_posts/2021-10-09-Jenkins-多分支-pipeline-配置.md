@@ -52,7 +52,7 @@ jenkins_1  |
 jenkins_1  | Jenkins initial setup is required. An admin user has been created and a password generated.
 jenkins_1  | Please use the following password to proceed to installation:
 jenkins_1  |
-jenkins_1  | e05d003a9ec24c62bf607b75a9e47582
+jenkins_1  | aee0014b14124efe03c361e1eed93589
 jenkins_1  |
 jenkins_1  | This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 jenkins_1  |
@@ -174,8 +174,7 @@ pipeline {
     agent any
     options {
         disableConcurrentBuilds() // 禁用并发构建
-        // checkoutToSubdirectory('service') // 将 git 检出到 ${WORKSPACE}/service 目录
-        timestamps() // Console log 中打印时间戳
+        timestamps()              // Console log 中打印时间戳
     }
     stages {
         stage('Build') {
@@ -210,8 +209,7 @@ pipeline {
                 branch 'master'
                 beforeInput true
             }
-            input {
-                // 人工确认
+            input { // 人工确认
                 message "Release a tag?"
                 ok "Yes, do it."
                 parameters {
@@ -231,8 +229,7 @@ pipeline {
                 tag '*'
                 beforeInput true
             }
-            input {
-                // 人工确认
+            input { // 人工确认
                 message "Should we continue?"
                 ok "Yes, do it."
             }
