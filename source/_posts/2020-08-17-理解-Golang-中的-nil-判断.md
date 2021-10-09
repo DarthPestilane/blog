@@ -89,7 +89,7 @@ func main() {
 }
 ```
 
-我们调用 `NewError()` 后得到的 err 是 `nil` 吗？运行后发现 `err != nil`。要解释这个现象需要从 interface 的结构说起。
+我们调用 `NewError()` 后得到的 err 是 `nil` 吗？运行后发现 `err` 不为 nil。要解释这个现象需要从 interface 的结构说起。
 
 `interface` 内部有两个元素 ———— `type` (类型) 和 `value` (值):
 
@@ -114,6 +114,6 @@ var i interface{}    // value 和 type 都为空
 assertTrue(i == nil) // 所以整个 interface == nil
 
 var p *Pointer        // p == nil
-var t interface{} = p // 但是t 的值为nil，但类型为 *Pointer
+var t interface{} = p // t 的值为nil，但类型为 *Pointer
 assertTrue(t != nil)  // 所以 t != nil
 ```
