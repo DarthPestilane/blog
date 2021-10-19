@@ -41,6 +41,13 @@
 
 <link rel="stylesheet" href="{{ url_for(theme.css) }}/main.css">
 
+<style>
+@font-face {
+  font-family: "Ubuntu Mono";
+  src: url("/fonts/UbuntuMono-R.ttf");
+}
+</style>
+
 {{ next_font() }}
 
 {%- set font_awesome_uri = theme.vendors.fontawesome or next_vendors('font-awesome/css/all.min.css') %}

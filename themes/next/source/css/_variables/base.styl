@@ -69,10 +69,10 @@ get_font_family(config) {
 }
 
 // Font families.
-$font-family-chinese      = "PingFang SC", "Microsoft YaHei";
+$font-family-chinese      = "Ubuntu Mono";
 
-$font-family-base         = $font-family-chinese, sans-serif;
-$font-family-base         = get_font_family('global'), $font-family-chinese, sans-serif if get_font_family('global');
+$font-family-base         = $font-family-chinese;
+$font-family-base         = get_font_family('global'), $font-family-chinese if get_font_family('global');
 
 $font-family-logo         = $font-family-base;
 $font-family-logo         = get_font_family('title'), $font-family-base if get_font_family('title');
@@ -83,8 +83,8 @@ $font-family-headings     = get_font_family('headings'), $font-family-base if ge
 $font-family-posts        = $font-family-base;
 $font-family-posts        = get_font_family('posts'), $font-family-base if get_font_family('posts');
 
-$font-family-monospace    = consolas, Menlo, monospace, $font-family-chinese;
-$font-family-monospace    = get_font_family('codes'), consolas, Menlo, monospace, $font-family-chinese if get_font_family('codes');
+$font-family-monospace    = $font-family-chinese;
+$font-family-monospace    = get_font_family('codes'), $font-family-chinese if get_font_family('codes');
 
 
 // Font size
