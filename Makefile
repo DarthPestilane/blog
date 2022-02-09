@@ -19,7 +19,7 @@ run:
 
 .PHONY: deploy
 deploy:
-	rsync -azvhP ./public/ tencent:/var/local/www/blog/ --delete
+	rsync -azvhP ./public/ tencent:/root/docker/blog/public/ --delete
 
 .PHONY: clean
 clean:
