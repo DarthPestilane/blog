@@ -12,15 +12,15 @@ jobs:
       name: deploy # deploy manually
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Nodejs
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '12'
 
       - name: Cache node dependency
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: cache-node-${{ hashFiles('**/package-lock.json') }}
