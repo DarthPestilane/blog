@@ -8,8 +8,6 @@ tags:
 - golang
 ---
 
-# Nginx 反代 go module
-
 配置如下:
 
 ```sh
