@@ -8,6 +8,8 @@ tags:
 - golang
 ---
 
+在特定情况下，用 nginx 反代 git 仓库，且避免出现 `go get meta tag did not match import path` 的报错。
+
 配置如下:
 
 ```sh
@@ -36,3 +38,5 @@ location / {
     proxy_pass http://原本的git仓库;
 }
 ```
+
+后续 go get 时，可能出现 `terminal prompts disabled` 的报错，使用 `GIT_TERMINAL_PROMPT=1 go get` 方可化解。
