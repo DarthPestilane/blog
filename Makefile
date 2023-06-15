@@ -2,7 +2,6 @@
 
 .PHONY: build
 build: clean
-	rm -rf db.json
 	npx hexo generate
 
 .PHONY: new
@@ -24,3 +23,4 @@ deploy:
 .PHONY: clean
 clean:
 	npx hexo clean
+	rm -rf db.json
