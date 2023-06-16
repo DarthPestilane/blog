@@ -7,6 +7,8 @@ tags:
 - mac
 ---
 
+## 安装还在仓库里的 formula
+
 如果需要用 Homebrew 安装已经被 disable 掉的 formula，例如需要安装 v1.12 版本的 golang, 使用 `brew install go@1.12` 是无法安装的，需要修改对应的 formula 脚本:
 
 ```sh
@@ -39,3 +41,12 @@ class GoAT112 < Formula
 ```
 
 之后，再次使用 `brew install go@1.12` ，虽然会有 warning 但最终还是可以顺利安装 v1.12 版本的 golang 。
+
+## 安装已给移除仓库的 formula
+
+通过 github 仓库搜索 <code>go&#64;1.12.rb</code>, 在 commits 中找到对应的提交。将 rb 文件保存到本地, 例如: <code>go&#64;1.12.rb</code> 。
+然后执行:
+
+```sh
+> HOMEBREW_NO_INSTALL_FROM_API=1 brew install ./go@1.12.rb
+```
