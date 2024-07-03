@@ -91,7 +91,7 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/DarthPestilane/DarthPestilane.github.io
+  repo: https://github.com/DarthPestilane/DarthPestilane
   branch: master
   name: DarthPestilane
   email: 553061376@qq.com
